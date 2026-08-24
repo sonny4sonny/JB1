@@ -1,0 +1,88 @@
+.paint-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ece9d8;
+}
+.paint-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 8px;
+  background: #ece9d8;
+  border-bottom: 1px solid #b8b5a3;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+.paint-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.paint-tool-group label {
+  font-size: 11px;
+  color: #333;
+  margin-right: 2px;
+}
+.paint-tool-btn {
+  padding: 4px 8px;
+  font-size: 11.5px;
+  border: 1px solid #8b8b6f;
+  background: linear-gradient(180deg, #fff, #dcdac6);
+  border-radius: 3px;
+  cursor: pointer;
+}
+.paint-tool-btn.active {
+  background: linear-gradient(180deg, #bcd7ff, #8fb8ec);
+  border-color: #3568c9;
+}
+.paint-tool-btn:active { filter: brightness(0.95); }
+
+.paint-canvas-wrap {
+  flex: 1;
+  overflow: auto;
+  background: #808080;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 14px;
+}
+#paint-canvas {
+  background: #fff;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.paint-palette {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  background: #ece9d8;
+  border-top: 1px solid #fff;
+  flex: 0 0 auto;
+}
+.palette-current {
+  width: 30px;
+  height: 30px;
+  border: 2px inset #888;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+.palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(10, 18px);
+  grid-template-rows: repeat(2, 16px);
+  gap: 2px;
+}
+.palette-swatch {
+  width: 18px;
+  height: 16px;
+  border: 1px solid rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+.palette-swatch.selected {
+  outline: 2px solid #0047ba;
+  outline-offset: 1px;
+}

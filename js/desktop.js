@@ -167,20 +167,21 @@
   function openReadme() {
     const text = `yo.
 
-portfolio
+this is my portfolio
 
-what's actually here right now:
-  - Project_01 / 02 / 03  -> newer stuff
+  - Project_01 / 02  etc.  -> newer stuff
   - Old_Work (folder)      -> older pieces
   - WIP (folder)           -> unfinished things
   - Gallery                -> everything in one place
-  - paint.exe              -> a working little paint app, go crazy style
-  - My Computer, Recycle Bin -> what are you trying to delete?
+  - paint.exe              -> mspaint - go crazy style
+  - contact_jb             -> contact and socials 
+  - Recycle Bin            -> don't look in here
 
-click into any image and hit fullscreen if you want a closer look.
+click into any image and hit fullscreen if you want a closer look
 
 
-— JB`;
+
+love — JB`;
     WM.open({
       id: 'readme',
       title: 'README.txt - Notepad',

@@ -361,7 +361,7 @@ click into any image and hit fullscreen if you want a closer look.
         height: 140,
         content: `<div style="text-align:center;padding-top:14px;">
             <p>bruh this is a website, not an OS.</p>
-            <p style="font-size:11px;color:#777;">gotcha</p>
+            <p style="font-size:11px;color:#777;"></p>
           </div>`
       });
     });

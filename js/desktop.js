@@ -281,18 +281,91 @@ click into any image and hit fullscreen if you want a closer look.
     { id: 'dontclick', label: "dont_click.exe", glyph: '💀' },
   ];
 
+    const ICON_STEP_X = 100;
+  const ICON_STEP_Y = 100;
+  const ICON_PAD = 16;
+  const ICON_W = 84;
+  const ICON_H = 88;
+  const POSITIONS_KEY = 'jbPortfolioIconPositions';
+
+  function loadPositions() {
+    try {
+      return JSON.parse(localStorage.getItem(POSITIONS_KEY)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function savePosition(id, x, y) {
+    const positions = loadPositions();
+    positions[id] = { x, y };
+    try { localStorage.setItem(POSITIONS_KEY, JSON.stringify(positions)); } catch (e) { /* storage unavailable */ }
+  }
+
+  function defaultPosition(index, layer) {
+    const rowsPerCol = Math.max(1, Math.floor(layer.clientHeight / ICON_STEP_Y));
+    const col = Math.floor(index / rowsPerCol);
+    const row = index % rowsPerCol;
+    return { x: ICON_PAD + col * ICON_STEP_X, y: ICON_PAD + row * ICON_STEP_Y };
+  }
+
   function renderIcons() {
     const layer = document.getElementById('icon-layer');
-    ICONS.forEach(icon => {
+    const saved = loadPositions();
+
+    ICONS.forEach((icon, index) => {
       const el = document.createElement('button');
       el.className = 'desktop-icon';
       el.innerHTML = `<span class="glyph">${icon.glyph}</span><span class="label">${icon.label}</span>`;
+
+      const pos = saved[icon.id] || defaultPosition(index, layer);
+      el.style.left = pos.x + 'px';
+      el.style.top = pos.y + 'px';
+
+      let dragging = false;
+      let moved = false;
+      let startX = 0, startY = 0, origX = 0, origY = 0;
+
+      el.addEventListener('pointerdown', (e) => {
+        dragging = true;
+        moved = false;
+        startX = e.clientX; startY = e.clientY;
+        origX = parseFloat(el.style.left) || 0;
+        origY = parseFloat(el.style.top) || 0;
+        el.setPointerCapture(e.pointerId);
+        el.style.zIndex = 2;
+      });
+
+      el.addEventListener('pointermove', (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        if (Math.abs(dx) + Math.abs(dy) > 4) moved = true;
+        if (!moved) return;
+        let nx = origX + dx;
+        let ny = origY + dy;
+        nx = Math.max(0, Math.min(nx, layer.clientWidth - ICON_W));
+        ny = Math.max(0, Math.min(ny, layer.clientHeight - ICON_H));
+        el.style.left = nx + 'px';
+        el.style.top = ny + 'px';
+      });
+
+      ['pointerup', 'pointercancel'].forEach(ev => {
+        el.addEventListener(ev, () => {
+          dragging = false;
+          el.style.zIndex = '';
+          if (moved) savePosition(icon.id, parseFloat(el.style.left), parseFloat(el.style.top));
+        });
+      });
+
       el.addEventListener('click', () => {
+        if (moved) { moved = false; return; }
         SFX.click();
         layer.querySelectorAll('.desktop-icon').forEach(i => i.classList.remove('selected'));
         el.classList.add('selected');
         APPS[icon.id] && APPS[icon.id]();
       });
+
       layer.appendChild(el);
     });
   }

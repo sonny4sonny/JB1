@@ -15,50 +15,92 @@ html, body {
 #boot-screen {
   position: fixed;
   inset: 0;
-  background: #000;
+  z-index: 1000;
+  cursor: pointer;
+  transition: opacity 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#boot-screen.fade-out { opacity: 0; pointer-events: none; }
+
+.boot-bar {
+  flex: 0 0 auto;
+  height: 9vh;
+  min-height: 44px;
+}
+.boot-bar-top {
+  background: linear-gradient(180deg, #1450d6 0%, #0d33b0 60%, #0a2a94 100%);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.25) inset;
+}
+.boot-bar-bottom {
+  background: linear-gradient(180deg, #141f6e 0%, #1c1f60 55%, #241a5c 100%);
+}
+
+.boot-stage {
+  flex: 1;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  cursor: pointer;
-  transition: opacity 0.6s ease;
+  background: linear-gradient(135deg, #7aa8f7 0%, #5588ee 45%, #3f6fd6 100%);
+  overflow: hidden;
 }
-#boot-screen.fade-out { opacity: 0; pointer-events: none; }
+.boot-glow {
+  position: absolute;
+  top: -12%;
+  left: -12%;
+  width: 55%;
+  height: 65%;
+  background: radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 40%, rgba(255,255,255,0) 70%);
+  pointer-events: none;
+}
 
-.boot-logo { text-align: center; margin-bottom: 48px; }
-.logo-mark {
-  font-size: 84px;
+.boot-hero { text-align: center; z-index: 1; }
+.boot-welcome {
+  font-family: "Trebuchet MS", "Segoe UI", "Verdana", sans-serif;
+  font-style: italic;
   font-weight: 700;
-  letter-spacing: 6px;
-  background: linear-gradient(180deg, #7ec8ff 0%, #2f7dff 45%, #0c3fae 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 40px rgba(60,140,255,0.45);
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 64px;
+  color: #fff;
+  text-shadow: 2px 3px 3px rgba(10,30,90,0.55);
+  letter-spacing: 1px;
 }
-.logo-sub {
-  margin-top: 6px;
-  color: #9fb8d9;
-  letter-spacing: 8px;
-  font-size: 13px;
+.boot-sub {
+  margin-top: 8px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-style: normal;
   font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.85);
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(10,30,90,0.4);
+}
+
+.boot-loading {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
 }
 
 .progress-track {
   width: 220px;
   height: 6px;
   border-radius: 3px;
-  background: #14213a;
+  background: rgba(255,255,255,0.25);
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px #24406b;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
 }
 .progress-fill {
   height: 100%;
   width: 30%;
   border-radius: 3px;
-  background: linear-gradient(90deg, #2f7dff, #7ec8ff, #2f7dff);
+  background: linear-gradient(90deg, #fff, #cfe0ff, #fff);
   animation: boot-load 1.4s ease-in-out infinite;
 }
 @keyframes boot-load {
@@ -67,17 +109,20 @@ html, body {
 }
 
 .boot-caption {
-  margin-top: 18px;
-  color: #6f87ab;
+  color: rgba(255,255,255,0.85);
   font-size: 12px;
   letter-spacing: 1px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
 }
 .boot-skip {
   position: absolute;
-  bottom: 28px;
-  color: #3c4f6e;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.55);
   font-size: 11px;
   letter-spacing: 1px;
+  z-index: 2;
 }
 
 /* ===================== DESKTOP ===================== */
@@ -105,15 +150,10 @@ html, body {
   inset: 0;
   bottom: 40px;
   z-index: 1;
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(auto-fill, 92px);
-  justify-content: start;
-  align-content: start;
-  gap: 4px;
-  padding: 12px;
 }
+
 .desktop-icon {
+  position: absolute;
   width: 84px;
   height: 88px;
   background: transparent;
@@ -125,6 +165,8 @@ html, body {
   padding: 6px 4px;
   cursor: pointer;
   border-radius: 3px;
+  touch-action: none;
+  user-select: none;
 }
 .desktop-icon:hover {
   background: rgba(255,255,255,0.12);

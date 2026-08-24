@@ -213,6 +213,18 @@ html, body {
 }
 .win.minimized { display: none; }
 
+.win-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+  background:
+    linear-gradient(135deg, transparent 0%, transparent 45%, #0047ba 45%, #0047ba 55%, transparent 55%, transparent 65%, #0047ba 65%, #0047ba 75%, transparent 75%);
+  z-index: 2;
+}
+
 .win-titlebar {
   height: 30px;
   flex: 0 0 auto;

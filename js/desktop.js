@@ -174,6 +174,8 @@ this is my portfolio
   - WIP (folder)           -> unfinished things
   - Gallery                -> everything in one place
   - paint.exe              -> mspaint - go crazy style
+  - solitaire.exe          -> solitaire 
+  - minesweeper.exe        -> minesweeper
   - contact_jb             -> contact and socials 
   - Recycle Bin            -> don't look in here
 
@@ -181,7 +183,9 @@ click into any image and hit fullscreen if you want a closer look
 
 
 
-love — JB`;
+love — JB
+
+site created by sonny`;
     WM.open({
       id: 'readme',
       title: 'README.txt - Notepad',
@@ -232,9 +236,9 @@ love — JB`;
       width: 300,
       height: 160,
       content: `<div style="text-align:center;padding-top:10px;">
-          <div style="font-size:34px;">😅</div>
-          <p>told you not to click it.</p>
-          <p style="font-size:11px;color:#777;">gotcha</p>
+          <div style="font-size:34px;">🫩</div>
+          <p>why would you click it</p>
+          <p style="font-size:11px;color:#777;"></p>
         </div>`
     });
   }
@@ -251,6 +255,31 @@ love — JB`;
       onOpen: (body) => PaintApp.build(body)
     });
   }
+   function openSolitaire() {
+    WM.open({
+      id: 'solitaire',
+      title: 'solitaire.exe',
+      icon: '🃏',
+      width: 560,
+      height: 540,
+      noPad: true,
+      resizable: true,
+      onOpen: (body) => SolitaireApp.build(body)
+    });
+  }
+
+    function openMinesweeper() {
+    WM.open({
+      id: 'minesweeper',
+      title: 'minesweeper.exe',
+      icon: '💣',
+      width: 480,
+      height: 520,
+      noPad: true,
+      resizable: true,
+      onOpen: (body) => MinesweeperApp.build(body)
+    });
+  }
 
   const APPS = {
     project1: () => openViewer(0),
@@ -264,7 +293,9 @@ love — JB`;
     mycomputer: openMyComputer,
     recyclebin: openRecycleBin,
     dontclick: openDontClick,
-    paint: openPaint
+    paint: openPaint,
+    solitaire: openSolitaire,
+    minesweeper: openMinesweeper
   };
 
   const ICONS = [
@@ -280,6 +311,9 @@ love — JB`;
     { id: 'mycomputer', label: 'My Computer', glyph: '💻' },
     { id: 'recyclebin', label: 'Recycle Bin', glyph: '🗑️' },
     { id: 'dontclick', label: "dont_click.exe", glyph: '💀' },
+    { id: 'solitaire', label: 'solitaire.exe', glyph: '🃏' },
+    { id: 'minesweeper', label: 'minesweeper.exe', glyph: '💣' }
+    
   ];
 
     const ICON_STEP_X = 100;

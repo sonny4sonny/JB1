@@ -58,7 +58,33 @@ const WM = (() => {
     );
   }
 
-  function open({ id, title, icon = '🗔', width = 420, height = 320, x, y, content, onOpen, onClose, noPad = false }) {
+   function makeResizable(win, handle) {
+    let resizing = false, startX = 0, startY = 0, startW = 0, startH = 0;
+    handle.addEventListener('pointerdown', (e) => {
+      e.stopPropagation();
+      resizing = true;
+      startX = e.clientX; startY = e.clientY;
+      const rect = win.getBoundingClientRect();
+      startW = rect.width; startH = rect.height;
+      handle.setPointerCapture(e.pointerId);
+    });
+    handle.addEventListener('pointermove', (e) => {
+      if (!resizing) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const maxW = window.innerWidth - 20;
+      const maxH = window.innerHeight - 60;
+      const newW = Math.min(maxW, startW + dx);
+      const newH = Math.min(maxH, startH + dy);
+      win.style.width = newW + 'px';
+      win.style.height = newH + 'px';
+    });
+    ['pointerup', 'pointercancel'].forEach(ev =>
+      handle.addEventListener(ev, () => { resizing = false; })
+    );
+  }
+
+  function open({ id, title, icon = '🗔', width = 420, height = 320, x, y, content, onOpen, onClose, noPad = false, resizable = false }) {
     if (openWins.has(id)) {
       const win = openWins.get(id);
       win.el.classList.remove('minimized');
@@ -86,6 +112,7 @@ const WM = (() => {
         </div>
       </div>
       <div class="win-body ${noPad ? 'no-pad' : ''}"></div>
+      ${resizable ? '<div class="win-resize-handle"></div>' : ''}
     `;
     const body = el.querySelector('.win-body');
     if (typeof content === 'string') body.innerHTML = content;
@@ -96,6 +123,10 @@ const WM = (() => {
     const titlebar = el.querySelector('.win-titlebar');
     makeDraggable(el, titlebar);
     el.addEventListener('pointerdown', () => focus(id));
+
+    if (resizable) {
+      makeResizable(el, el.querySelector('.win-resize-handle'));
+    }
 
     const taskbarBtn = document.createElement('button');
     taskbarBtn.className = 'taskbar-task';

@@ -80,4 +80,30 @@ const SFX = (() => {
   }
 
   return { click, startLoop, stopLoop };
+    function stopLoop() {
+    if (loopTimer) { clearInterval(loopTimer); loopTimer = null; }
+  }
+
+  function win() {
+    try {
+      const c = getCtx();
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      notes.forEach((freq, i) => {
+        const now = c.currentTime + i * 0.12;
+        const osc = c.createOscillator();
+        const gain = c.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.14, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+        osc.connect(gain).connect(c.destination);
+        osc.start(now);
+        osc.stop(now + 0.32);
+      });
+    } catch (e) { /* audio unavailable, fail silently */ }
+  }
+
+  return { click, startLoop, stopLoop, win };
 })();
+
+

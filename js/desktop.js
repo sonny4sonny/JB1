@@ -238,42 +238,6 @@ click into any image and hit fullscreen if you want a closer look.
     });
   }
 
-  function openNyanCat() {
-    WM.open({
-      id: 'nyancat',
-      title: 'nyancat.exe',
-      icon: '🌈',
-      width: 360,
-      height: 200,
-      noPad: true,
-      onOpen: (body) => {
-        body.style.background = '#1a1a2e';
-        body.style.position = 'relative';
-        body.style.overflow = 'hidden';
-        body.style.height = '100%';
-        body.innerHTML = `
-          <style>
-            @keyframes nyan-fly { 0% { left: -80px; } 100% { left: 110%; } }
-            @keyframes nyan-rainbow { 0%,100% { filter: hue-rotate(0deg);} 50% { filter: hue-rotate(180deg);} }
-            .nyan-trail {
-              position:absolute; top:50%; left:0; width:100%; height:24px;
-              transform: translateY(-50%);
-              background: repeating-linear-gradient(90deg,#ff5252,#ff5252 12px,#ffca28 12px,#ffca28 24px,#66bb6a 24px,#66bb6a 36px,#42a5f5 36px,#42a5f5 48px,#ab47bc 48px,#ab47bc 60px);
-              animation: nyan-rainbow 2s linear infinite;
-            }
-            .nyan-cat {
-              position:absolute; top:50%; transform:translateY(-50%); font-size:40px;
-              animation: nyan-fly 5s linear infinite;
-            }
-          </style>
-          <div class="nyan-trail"></div>
-          <div class="nyan-cat">🐱🌈</div>
-        `;
-        SFX.startLoop();
-      },
-      onClose: () => SFX.stopLoop()
-    });
-  }
 
   function openPaint() {
     WM.open({
@@ -299,7 +263,6 @@ click into any image and hit fullscreen if you want a closer look.
     mycomputer: openMyComputer,
     recyclebin: openRecycleBin,
     dontclick: openDontClick,
-    nyancat: openNyanCat,
     paint: openPaint
   };
 
@@ -316,7 +279,6 @@ click into any image and hit fullscreen if you want a closer look.
     { id: 'mycomputer', label: 'My Computer', glyph: '💻' },
     { id: 'recyclebin', label: 'Recycle Bin', glyph: '🗑️' },
     { id: 'dontclick', label: "dont_click.exe", glyph: '💀' },
-    { id: 'nyancat', label: 'nyancat.exe', glyph: '🌈' }
   ];
 
   function renderIcons() {

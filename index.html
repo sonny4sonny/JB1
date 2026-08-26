@@ -11,27 +11,8 @@
 </head>
 <body>
 
-<!-- ===================== BIOS BOOT MENU ===================== -->
-<div id="bios-screen">
-  <pre id="bios-text"></pre>
-  <div id="boot-menu" class="hidden">
-    <div class="boot-menu-title">Please select how you'd like to enter:</div>
-    <div class="boot-menu-list">
-      <div class="boot-menu-item selected" data-action="start">Start Portfolio Normally</div>
-      <div class="boot-menu-item" data-action="install">Install Swag.exe</div>
-      <div class="boot-menu-item disabled">Onboard Wifi (2.4GHz)</div>
-      <div class="boot-menu-item disabled">Onboard Wifi (5GHz)</div>
-      <div class="boot-menu-item disabled">BIOS Setup</div>
-      <div class="boot-menu-item disabled">Device Configuration</div>
-      <div class="boot-menu-item disabled">Portfolio Flash Update</div>
-      <div class="boot-menu-item disabled">Change Settings</div>
-    </div>
-    <div class="boot-menu-hint">&uarr;&darr; to move &nbsp;&nbsp; Enter to select &nbsp;&nbsp; click to choose</div>
-  </div>
-</div>
-
 <!-- ===================== BOOT SCREEN ===================== -->
-<div id="boot-screen" hidden>
+<div id="boot-screen">
   <div class="boot-bar boot-bar-top"></div>
   <div class="boot-stage">
     <div class="boot-glow"></div>
@@ -51,7 +32,7 @@
 <!-- ===================== DESKTOP ===================== -->
 <div id="desktop" hidden>
 
-  <!-- Wallpaper -->
+    <!-- Wallpaper -->
   <div class="wallpaper"></div>
 
   <!-- Desktop icons -->
@@ -101,7 +82,6 @@
 <script src="js/solitaire.js"></script>
 <script src="js/minesweeper.js"></script>
 <script src="js/desktop.js"></script>
-<script src="js/bios.js"></script>
 <script src="js/boot.js"></script>
 </body>
 </html>

@@ -1,8 +1,7 @@
 /* ===================== BOOT SEQUENCE ===================== */
-window.startWelcomeBoot = function () {
+(() => {
   const bootScreen = document.getElementById('boot-screen');
   const desktop = document.getElementById('desktop');
-  bootScreen.hidden = false;
   let started = false;
 
   function bootToDesktop() {
@@ -27,4 +26,4 @@ window.startWelcomeBoot = function () {
     clearTimeout(autoTimer);
     bootToDesktop();
   }, { once: true });
-};
+})();
